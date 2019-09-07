@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     Button submitButton;
@@ -33,8 +37,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void submit(View view) {//process button onClick event
-        System.out.println("Hello mom");
-        Log.i("testButton","Hi dad! "+responseText.getText().toString());
-        displayText.setText(displayText.getText().toString()+" "+responseText.getText().toString());
+        String text = "";
+        try{
+            InputStream inputStream = getAssets().open("myTextFile.txt");
+            /** For use with raw file
+             *  InputStream inputStream = getResources().openRawResource(R.raw.my_text_file);
+             */
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            text = new String(buffer);
+        }catch (IOException e){}
+        displayText.setText(text);
+        Toast.makeText(getApplicationContext(),"Done reading.",Toast.LENGTH_SHORT).show();
     }
 }
