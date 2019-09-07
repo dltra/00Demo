@@ -19,14 +19,6 @@ public class MainActivity extends AppCompatActivity {
         submitButton=findViewById(R.id.clickButton);
         responseText=findViewById(R.id.responseEditText);
         displayText=findViewById(R.id.textBox);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Hello mom");
-                Log.i("testButton","Hi dad! "+responseText.getText().toString());
-                displayText.setText(displayText.getText().toString()+" "+responseText.getText().toString());
-            }
-        });
         responseText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -39,5 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void submit(View view) {//process button onClick event
+        System.out.println("Hello mom");
+        Log.i("testButton","Hi dad! "+responseText.getText().toString());
+        displayText.setText(displayText.getText().toString()+" "+responseText.getText().toString());
     }
 }

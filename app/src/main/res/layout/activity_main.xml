@@ -40,6 +40,8 @@
         android:text="@string/click_button"
         android:textColor="#318214"
         android:textAllCaps="true"
+        android:clickable="true"
+        android:onClick="submit"
         app:layout_constraintTop_toBottomOf="@+id/responseEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
