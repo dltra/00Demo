@@ -1,13 +1,14 @@
 package com.traf1.demo;
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +53,15 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         String currentTime = getString(R.string.time,duration++);
                         displayText.setText(currentTime);
-                        if(duration>=5)timer.cancel();
+                        if(duration>=5){
+                            timer.cancel();
+                            timer.purge();
+                            timer=new Timer();
+                            duration=0;
+                            Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                            intent.putExtra("com.traf1.demo.extra.MESSAGE",displayText.getText().toString());
+                            startActivity(intent);
+                        }
                     }
                 });
             }

@@ -5,4 +5,6 @@
     <string name="color_hint">State your favorite color?</string>
     <string name="click_button">Submit</string>
     <string name="time">Time: %1$d</string>
+    <string name="activity2_name">Second Activity</string>
+    <string name="returnValue">return</string>
 </resources>
