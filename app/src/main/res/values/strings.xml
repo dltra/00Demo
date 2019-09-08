@@ -4,4 +4,5 @@
     <string name="name_hint">What is your name?</string>
     <string name="color_hint">State your favorite color?</string>
     <string name="click_button">Submit</string>
+    <string name="time">Time: %1$d</string>
 </resources>

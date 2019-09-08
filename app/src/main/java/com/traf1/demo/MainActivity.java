@@ -14,11 +14,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     Button submitButton;
     EditText responseText;
     TextView displayText;
+    Timer timer = new Timer();
+    int duration = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void submit(View view) {//process button onClick event
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String currentTime = getString(R.string.time,duration++);
+                        displayText.setText(currentTime);
+                        if(duration>=5)timer.cancel();
+                    }
+                });
+            }
+        }, 1000, 1000);
         String text = "";
         ArrayList<String> texts = new ArrayList<>();
         try{
