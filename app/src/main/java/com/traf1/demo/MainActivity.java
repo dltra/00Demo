@@ -1,6 +1,7 @@
 package com.traf1.demo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,17 +22,24 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     Button submitButton;
-    EditText responseText;
+    EditText responseText, response2Text;
     TextView displayText;
     Timer timer = new Timer();
+    SharedPreferences mPreferences;
     int duration = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //initialize preferences
+        mPreferences = getSharedPreferences("com.traf1.demo.sharedprefs",MODE_PRIVATE);
+        response2Text = findViewById(R.id.response2EditText);
         submitButton=findViewById(R.id.clickButton);
         responseText=findViewById(R.id.responseEditText);
         displayText=findViewById(R.id.textBox);
+        //restore preferences into submit button
+        submitButton.setText(mPreferences.getString("mResponse","defaultString")
+            +mPreferences.getInt("mResponseNum",99));
         responseText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -44,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //store values into preferences onPause
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        preferencesEditor.putString("mResponse", responseText.getText().toString());
+        preferencesEditor.putInt("mResponseNum", Integer.parseInt(response2Text.getText().toString()));
+        preferencesEditor.apply();
     }
     public void submit(View view) {//process button onClick event
         timer.scheduleAtFixedRate(new TimerTask() {

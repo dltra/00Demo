@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/color_hint"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/textBox"
         app:layout_constraintLeft_toRightOf="@id/responseEditText"
         app:layout_constraintRight_toRightOf="parent"/>
