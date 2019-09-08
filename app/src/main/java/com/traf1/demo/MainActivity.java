@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             duration=0;
                             Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
                             intent.putExtra("com.traf1.demo.extra.MESSAGE",displayText.getText().toString());
-                            startActivity(intent);
+                            startActivityForResult(intent, 1);
                         }
                     }
                 });
@@ -80,5 +81,12 @@ public class MainActivity extends AppCompatActivity {
         }catch (IOException e){}
         displayText.setText(texts.get(0));
         Toast.makeText(getApplicationContext(),"Done reading.",Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 & resultCode==RESULT_OK){
+            displayText.setText(data.getStringExtra("com.traf1.demo.extra.REPLY"));
+        }
     }
 }
